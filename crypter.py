@@ -282,4 +282,6 @@ if len(sys.argv) > 2:
     else:
         print("Invalid option use filename plus -c to code and -d to decode")
 else:
-    print("Missing arguments")
+    print("Missing arguments...")
+    print("crypter jsonfilename.json -c (encrypt)")
+    print("crypter jsonfilename.json -d (decrypt)")

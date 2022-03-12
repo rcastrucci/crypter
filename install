@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
+import os
+import os.path
+import subprocess
+
+def checkPath(path):
+    isExist = os.path.exists(path)
+    if not isExist:
+        os.makedirs(path)
+        print("A directory {} was created!".format(path))
+
+
+def execute(command):
+    bashCommand = command
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+
+
+def moveFile(file, path):
+    if os.path.exists(file+".py"):
+        execute("cp {}.py {}/{}".format(file, path, file))
+        execute("chmod ugo+x {}/{}".format(path, file))
+        return True
+    else:
+        return False
+
+
+print("Installing Crypter...")
+path = "/usr/local/bin"
+file = "crypter"
+checkPath(path)
+if os.path.exists("{}/{}".format(path, file)):
+    print("Crypter already installed!")
+else:
+    if moveFile(file, path):
+        print("Installed successfully!")
+        print("Use crypter plus json filename and options 'c' to encrypt and 'd' to decrypt")
+    else:
+        print("Crypter file not found")
+        print("Installation aborted!")
